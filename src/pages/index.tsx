@@ -4,24 +4,10 @@ import { useState } from "react";
 
 import { api } from "~/utils/api";
 
-const questions: Question[] = [
-  {
-    createdAt: new Date(),
-    id: 1,
-    questionContent: "Huzzah this is amazin",
-    updatedAt: new Date(),
-    username: "Jon",
-  },
-  {
-    createdAt: new Date(),
-    id: 2,
-    questionContent: "Hurray",
-    updatedAt: new Date(),
-    username: "Jon",
-  },
-];
 export default function Home() {
-  const questionsResult = api.question.questions.useQuery();
+  const questionsResult = api.question.questions.useQuery(undefined, {
+    refetchInterval: 3000,
+  });
   const refetchQuestons = questionsResult.refetch;
   const { mutateAsync } = api.question.createQuestion.useMutation();
 
